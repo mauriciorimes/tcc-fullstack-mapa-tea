@@ -1,0 +1,388 @@
+/* Estilos próprios. O layout e a responsividade vêm do Bootstrap. */
+
+.mapa {
+  width: 100%;
+  height: 60vh;
+}
+
+@media (min-width: 992px) {
+  .mapa {
+    height: calc(100vh - 56px - 2rem);
+  }
+}
+
+/* Pin cinza do local que está sendo cadastrado */
+
+.pin-novo {
+  filter: grayscale(1) brightness(0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaflet-zoom-anim .leaflet-zoom-animated,
+  .leaflet-fade-anim .leaflet-popup {
+    transition: none !important;
+  }
+}
+
+/* Legenda sobre o mapa explicando como adicionar um local */
+.legenda-mapa {
+  position: absolute;
+  top: 0.625rem;
+  left: 3.25rem; /* espaço para os botões de zoom */
+  right: 0.625rem;
+  z-index: 1000;
+  pointer-events: none;
+  padding: 0.375rem 0.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  color: #212529;
+}
+
+@media (min-width: 768px) {
+  .legenda-mapa {
+    left: auto;
+    max-width: 22rem;
+  }
+}
+
+.legenda-mapa.ajustando {
+  background: #d1e7dd;
+  color: #0a3622;
+}
+
+/* Ponto azul da posição do usuário */
+.ponto-usuario {
+  background: #0d6efd;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.ponto-usuario.ajustando {
+  cursor: move;
+  border-width: 4px;
+  box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.5), 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Legenda das medidas (ponto azul, margem de erro, raio de busca) */
+.legenda-medidas {
+  position: absolute;
+  bottom: 1.75rem; /* acima da atribuição do mapa */
+  left: 0.625rem;
+  z-index: 1000;
+  pointer-events: none;
+  padding: 0.375rem 0.625rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  color: #212529;
+}
+
+.legenda-medidas li + li {
+  margin-top: 0.125rem;
+}
+
+/* Amostras de cor usadas nas legendas e nos textos explicativos */
+.amostra {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  vertical-align: -0.125rem;
+}
+
+.amostra-ponto {
+  background: #0d6efd;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.amostra-precisao {
+  background: rgba(13, 110, 253, 0.25);
+  border: 1px solid rgba(13, 110, 253, 0.5);
+}
+
+.amostra-raio {
+  border: 2px dashed #6f42c1;
+}
+
+/* Cor "laranja" para avisos, no mesmo padrão das cores do Bootstrap
+   (text-bg-*, bg-*-subtle, border-*-subtle). Texto escuro para manter o
+   contraste exigido pela WCAG AA. */
+.text-bg-laranja {
+  background-color: #fd7e14;
+  color: #000;
+}
+
+.bg-laranja-subtle {
+  background-color: #ffe5d0;
+}
+
+.border-laranja-subtle {
+  border-color: #fecba1 !important;
+}
+
+/* Cruz no centro do mapa, exibida ao escolher o local pelo teclado */
+.cruz-do-centro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  z-index: 1000;
+  pointer-events: none;
+  background:
+    linear-gradient(#000, #000) center / 2px 100% no-repeat,
+    linear-gradient(#000, #000) center / 100% 2px no-repeat;
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);
+}
+
+/* No modo de seleção, o cursor indica que o clique marca o local */
+.mapa-selecionando .leaflet-grab {
+  cursor: crosshair;
+}
+
+/* Pins com os símbolos das categorias (o desenho é um SVG gerado em iconesDePin.js) */
+.pin-categoria {
+  background: none;
+  border: 0;
+}
+
+.pin-categoria svg {
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.simbolo-da-categoria {
+  vertical-align: -0.3rem;
+}
+
+.legenda-medidas .separador {
+  margin-top: 0.375rem;
+  padding-top: 0.375rem;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Menu fixo no topo, em cor de baixa saturação (RNF22) */
+.cabecalho {
+  background-color: #2f4858;
+}
+
+.cabecalho .nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+/* Mapa pequeno da tela de detalhes do local */
+.mapa-do-local {
+  width: 100%;
+  height: 300px;
+}
+
+/* Fotos dos pins: todas no mesmo tamanho (proporção 4:3), qualquer que seja o
+   formato do arquivo original. A imagem preenche o quadro e o excesso é cortado. */
+.foto-do-pin {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Telas de formulário simples (entrar, criar conta, recuperar senha) */
+.pagina-estreita {
+  max-width: 28rem;
+}
+
+.cabecalho .navbar-text {
+  color: #fff;
+}
+
+.pagina-media {
+  max-width: 40rem;
+}
+
+/* Listas de rótulo e valor (por exemplo, os dados de uma solicitação) */
+dl dt {
+  font-weight: 600;
+}
+
+dl dd {
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Acabamento visual e de acessibilidade
+   ========================================================================== */
+
+/* Sem animações nem transições (seções 2.1.5 e 2.2.1.5 da documentação, RNF21):
+   nada se move sozinho na tela. */
+*,
+*::before,
+*::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Paleta de baixa saturação (RNF22), no lugar das cores fortes do Bootstrap.
+   Todos os pares de texto e fundo mantêm contraste de pelo menos 4,5:1. */
+:root {
+  --bs-primary: #2f5d8a;
+  --bs-primary-rgb: 47, 93, 138;
+  --bs-link-color: #2a5580;
+  --bs-link-color-rgb: 42, 85, 128;
+  --bs-link-hover-color: #1d3d5c;
+  --bs-link-hover-color-rgb: 29, 61, 92;
+  --bs-success-bg-subtle: #dfece3;
+  --bs-success-border-subtle: #b9d3c1;
+  --bs-success-text-emphasis: #1f4a33;
+  --bs-danger-bg-subtle: #f1dede;
+  --bs-danger-border-subtle: #dcbcbc;
+  --bs-danger-text-emphasis: #6b2424;
+  --bs-warning-bg-subtle: #f3ead0;
+  --bs-warning-border-subtle: #e0d09c;
+  --bs-warning-text-emphasis: #57440a;
+  --bs-info-bg-subtle: #dbe7ef;
+  --bs-info-border-subtle: #b7ccdb;
+  --bs-info-text-emphasis: #1f4259;
+  --bs-primary-bg-subtle: #dbe5f0;
+  --bs-primary-border-subtle: #b6c9de;
+}
+
+.btn-primary {
+  --bs-btn-bg: #2f5d8a;
+  --bs-btn-border-color: #2f5d8a;
+  --bs-btn-hover-bg: #264c71;
+  --bs-btn-hover-border-color: #264c71;
+  --bs-btn-active-bg: #1f3f5e;
+  --bs-btn-active-border-color: #1f3f5e;
+  --bs-btn-disabled-bg: #6f8aa6;
+  --bs-btn-disabled-border-color: #6f8aa6;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #2a5580;
+  --bs-btn-border-color: #2f5d8a;
+  --bs-btn-hover-bg: #2f5d8a;
+  --bs-btn-hover-border-color: #2f5d8a;
+  --bs-btn-active-bg: #264c71;
+  --bs-btn-active-border-color: #264c71;
+}
+
+.btn-success {
+  --bs-btn-bg: #2e6b4f;
+  --bs-btn-border-color: #2e6b4f;
+  --bs-btn-hover-bg: #255841;
+  --bs-btn-hover-border-color: #255841;
+  --bs-btn-active-bg: #1d4633;
+  --bs-btn-active-border-color: #1d4633;
+}
+
+.btn-danger {
+  --bs-btn-bg: #9a3b3b;
+  --bs-btn-border-color: #9a3b3b;
+  --bs-btn-hover-bg: #803030;
+  --bs-btn-hover-border-color: #803030;
+  --bs-btn-active-bg: #672626;
+  --bs-btn-active-border-color: #672626;
+}
+
+.btn-outline-danger {
+  --bs-btn-color: #8a3232;
+  --bs-btn-border-color: #9a3b3b;
+  --bs-btn-hover-bg: #9a3b3b;
+  --bs-btn-hover-border-color: #9a3b3b;
+  --bs-btn-active-bg: #803030;
+  --bs-btn-active-border-color: #803030;
+}
+
+.text-bg-success {
+  background-color: #2e6b4f !important;
+}
+
+.text-bg-danger {
+  background-color: #9a3b3b !important;
+}
+
+.text-bg-primary {
+  background-color: #2f5d8a !important;
+}
+
+.text-bg-warning {
+  background-color: #e6cf85 !important;
+  color: #212529 !important;
+}
+
+.text-bg-laranja {
+  background-color: #dba36c;
+}
+
+.form-check-input:checked {
+  background-color: #2f5d8a;
+  border-color: #2f5d8a;
+}
+
+.border-danger-subtle {
+  border-color: #dcbcbc !important;
+}
+
+/* Mensagens com texto, cor e ícone, nunca só a cor (RNF24). O ícone vem pelo
+   CSS, então toda mensagem do tipo recebe o seu. */
+.alert-success::before {
+  content: '✓ ';
+}
+
+.alert-danger::before {
+  content: '✕ ';
+}
+
+.alert-warning::before {
+  content: '⚠ ';
+}
+
+.alert-info::before {
+  content: 'ℹ ';
+}
+
+/* Link "Pular para o conteúdo": fica escondido até receber o foco pelo teclado (RNF19). */
+.pular-para-o-conteudo {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 2000;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  color: #212529;
+  border: 2px solid #212529;
+  border-radius: 0.375rem;
+}
+
+.pular-para-o-conteudo:focus {
+  top: 0.5rem;
+}
+
+/* O conteúdo recebe o foco ao trocar de tela, sem ganhar contorno em volta de tudo. */
+#conteudo:focus {
+  outline: none;
+}
+
+/* Foco bem visível em todos os controles (RNF37). */
+:focus-visible {
+  outline: 3px solid #1d3d5c;
+  outline-offset: 2px;
+}
+
+/* Marcador que reúne pins próximos (RF46) */
+.grupo-de-pins {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 3px solid #2f5d8a;
+  border-radius: 50%;
+  color: #212529;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}

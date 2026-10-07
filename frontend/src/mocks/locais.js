@@ -1,0 +1,107 @@
+// Locais de exemplo (fictícios) usados enquanto não existe back-end.
+// Há pelo menos um em cada situação do fluxo de moderação: publicado,
+// aguardando moderação, rejeitado e despublicado.
+import { fotoDeExemplo } from './detalhes'
+
+export const locaisIniciais = [
+  // ---- Publicados: aparecem no mapa para qualquer visitante ----
+  {
+    id: 'exemplo-1',
+    nome: 'Biblioteca Exemplo',
+    descricao: 'Sala de leitura reservada e sem música ambiente.',
+    categorias: ['area-silenciosa'],
+    latitude: -23.5505,
+    longitude: -46.6333,
+    status: 'aprovado',
+    idDoAutor: 'usuario-comum',
+    criadoEm: '2026-07-20T14:10:00Z',
+    dataAnalise: '2026-07-21T09:00:00Z',
+  },
+  {
+    id: 'exemplo-2',
+    nome: 'Parque Exemplo',
+    descricao: 'Estacionamento próprio com vaga prioritária sinalizada.',
+    categorias: ['vaga-prioritaria', 'area-silenciosa'],
+    latitude: -22.9068,
+    longitude: -43.1729,
+    status: 'aprovado',
+    idDoAutor: 'usuario-bianca',
+    criadoEm: '2026-08-05T11:30:00Z',
+    dataAnalise: '2026-08-06T10:15:00Z',
+  },
+  {
+    id: 'exemplo-3',
+    nome: 'Cinema Exemplo',
+    descricao: 'Desconto na entrada para pessoas com TEA e acompanhante.',
+    categorias: ['desconto', 'vaga-prioritaria'],
+    latitude: -19.9167,
+    longitude: -43.9345,
+    status: 'aprovado',
+    idDoAutor: 'usuario-bianca',
+    criadoEm: '2026-08-28T16:45:00Z',
+    dataAnalise: '2026-08-29T08:20:00Z',
+  },
+
+  // ---- Aguardando moderação: aparecem na fila do moderador ----
+  {
+    id: 'exemplo-4',
+    nome: 'Padaria Exemplo',
+    descricao: 'Salão reservado nos fundos, sem música ambiente.',
+    categorias: ['area-silenciosa', 'desconto'],
+    fotos: [{ url: fotoDeExemplo('Salão reservado', '#e2d5ea'), descricao: 'Salão reservado da padaria' }],
+    latitude: -22.8859,
+    longitude: -43.1153,
+    status: 'pendente',
+    idDoAutor: 'usuario-comum',
+    seloSolicitado: true,
+    seloLocalidade: true,
+    criadoEm: '2026-10-05T10:05:00Z',
+  },
+  {
+    id: 'exemplo-5',
+    nome: 'Museu Exemplo',
+    descricao: 'Estacionamento com vagas prioritárias ao lado da entrada.',
+    categorias: ['vaga-prioritaria'],
+    fotos: [],
+    latitude: -21.7622,
+    longitude: -43.3434,
+    status: 'pendente',
+    idDoAutor: 'usuario-bianca',
+    seloSolicitado: false,
+    seloLocalidade: false,
+    criadoEm: '2026-10-06T15:40:00Z',
+  },
+
+  // ---- Rejeitado: o autor lê o motivo em "Minhas solicitações" ----
+  {
+    id: 'exemplo-6',
+    nome: 'Mercado Exemplo',
+    descricao: 'Tem caixa preferencial.',
+    categorias: ['desconto'],
+    fotos: [],
+    latitude: -21.7545,
+    longitude: -41.3244,
+    status: 'rejeitado',
+    motivoRejeicao: 'A descrição não indica nenhum desconto ou benefício para pessoas com TEA.',
+    idDoAutor: 'usuario-comum',
+    seloSolicitado: true,
+    seloLocalidade: false,
+    criadoEm: '2026-09-18T13:00:00Z',
+    dataAnalise: '2026-09-19T09:30:00Z',
+  },
+
+  // ---- Despublicado: retirado do mapa depois da análise de uma denúncia ----
+  {
+    id: 'exemplo-7',
+    nome: 'Lanchonete Exemplo',
+    descricao: 'Área externa silenciosa.',
+    categorias: ['area-silenciosa'],
+    fotos: [],
+    latitude: -22.5112,
+    longitude: -43.1779,
+    status: 'despublicado',
+    idDoAutor: 'usuario-bianca',
+    criadoEm: '2026-08-12T12:00:00Z',
+    dataAnalise: '2026-09-30T17:10:00Z',
+  },
+]
